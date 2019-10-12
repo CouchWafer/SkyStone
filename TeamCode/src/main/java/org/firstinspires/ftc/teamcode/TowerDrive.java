@@ -59,21 +59,27 @@ public class TowerDrive extends OpMode {
 
         if(gamepad2.left_trigger > .1)
         {
-            liftRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            liftLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            if(liftLeft.getMode() == DcMotor.RunMode.RUN_TO_POSITION){
+
+                liftRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                liftLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            }
             liftLeft.setPower(1);
             liftRight.setPower(1);
         }
         else if(gamepad2.right_trigger > .1)
         {
-            liftRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            liftLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            if(liftLeft.getMode() == DcMotor.RunMode.RUN_TO_POSITION){
+
+                liftRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                liftLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            }
             liftLeft.setPower(-.2);
             liftRight.setPower(-.2);
         }
         else {
             liftLeft.setTargetPosition(liftLeft.getCurrentPosition());
-            liftRight.setTargetPosition(-liftLeft.getCurrentPosition());
+            liftRight.setTargetPosition(liftLeft.getCurrentPosition());
             liftRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             liftLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             liftLeft.setPower(.5);
@@ -105,6 +111,11 @@ public class TowerDrive extends OpMode {
         else
             intake.setPower(0);
         Drive();
+
+
+
+        telemetry.addData("ya", "Left Pos: " + liftLeft.getCurrentPosition());
+        telemetry.addData("ja", "Right Pos: " + liftRight.getCurrentPosition());
     }
 
     private void Drive()
