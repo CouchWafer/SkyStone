@@ -11,7 +11,7 @@ public class TowerDrive extends OpMode {
     final double K = 1f;
     double drivePower = 1;
     boolean encoderMode = false;
-    int posChange = 20;
+    int posChange = 50;
     //call DcMotors into play
     private DcMotor frontLeft = null;
     private DcMotor frontRight = null;
@@ -45,18 +45,14 @@ public class TowerDrive extends OpMode {
 
 
 
-        liftRight.setTargetPosition(0);
-        liftLeft.setTargetPosition(0);
         armRaise.setTargetPosition(0);
+        armRaise.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 
     }
     @Override
     public void loop()
     {
-        if(gamepad2.x)
-            armRaise.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
         if(gamepad2.left_trigger > .1)
         {
             if(liftLeft.getMode() == DcMotor.RunMode.RUN_TO_POSITION){
